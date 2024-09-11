@@ -1,16 +1,26 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import json
+from cmath import sin, cos
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def parser_json():
+    with open('data.json', 'r') as file:
+        data = json.load(file)
+    return data
 
 
-# Press the green button in the gutter to run the script.
+def calculate():
+    data = parser_json()
+    n0 = data['n0']
+    h = data['h']
+    nk = data['nk']
+    a = data['a']
+    b = data['b']
+    c = data['c']
+    with open('output.txt', 'w') as file:
+        for x in range(n0, nk + 1, h):
+            y = sin(a*x) * cos(b*x) / (sin(x)+cos(x)) + c
+            file.write(f"{y}\n")
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    calculate()
