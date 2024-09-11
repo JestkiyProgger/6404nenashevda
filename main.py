@@ -42,8 +42,9 @@ def calculate_argv(func: Callable[[float, ...], float]):
     parser.add_argument('--a', type=float, help='Первый параметр')
     parser.add_argument('--b', type=float, help='Второй параметр')
     parser.add_argument('--c', type=float, help='Третий параметр')
-    range_args = (parser.n0, parser.nk, parser.h)
-    func_args = (parser.a, parser.b, parser.c)
+    args = parser.parse_args().__dict__
+    range_args = (args['n0'], args['nk'], args['h'])
+    func_args = (args['a'], args['b'], args['c'])
 
     write_result(eval_target_function(func, range_args, func_args))
 
@@ -54,4 +55,4 @@ def eval_target_function(func: Callable[[float, ...], float],
 
 
 if __name__ == '__main__':
-    calculate_json(target_function)
+    calculate_argv(target_function)
